@@ -13,7 +13,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-// ... existing DEMO data ...
+// Dummy data for initial hydration visualization if API is empty
+const DEMO_STORES = [
+  { id: 991, name: "McDonald's", imageUrl: "https://images.unsplash.com/photo-1552590635-27c2c2128abf?auto=format&fit=crop&w=800&q=80", description: "Burgers • American • Fast Food", deliveryPrice: "$1.99", deliveryTime: "15-25 min", category: "Restaurants" },
+  { id: 992, name: "Sushi Zen", imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80", description: "Sushi • Japanese • Asian", deliveryPrice: "$3.49", deliveryTime: "30-45 min", category: "Restaurants" },
+  { id: 993, name: "Pizza Hut", imageUrl: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80", description: "Pizza • Italian • Wings", deliveryPrice: "$2.49", deliveryTime: "25-35 min", category: "Restaurants" },
+  { id: 994, name: "Starbucks", imageUrl: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80", description: "Coffee • Breakfast • Bakery", deliveryPrice: "$0.99", deliveryTime: "10-20 min", category: "Groceries" },
+  { id: 995, name: "Wolt Market", imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80", description: "Groceries • Fresh • Essentials", deliveryPrice: "Free", deliveryTime: "20-30 min", category: "Stores" },
+  { id: 996, name: "Subway", imageUrl: "https://images.unsplash.com/photo-1513639776629-9269d0d661e2?auto=format&fit=crop&w=800&q=80", description: "Sandwiches • Healthy • Salads", deliveryPrice: "$1.49", deliveryTime: "15-25 min", category: "Restaurants" },
+];
+
+const DEMO_CATEGORIES = [
+  { id: 1, name: "Burgers", imageUrl: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" },
+  { id: 2, name: "Sushi", imageUrl: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=400&q=80" },
+  { id: 3, name: "Pizza", imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80" },
+  { id: 4, name: "Asian", imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80" },
+  { id: 5, name: "Vegan", imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80" },
+  { id: 6, name: "Dessert", imageUrl: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=400&q=80" },
+];
 
 export default function Home() {
   const { data: stores, isLoading } = useStores();
