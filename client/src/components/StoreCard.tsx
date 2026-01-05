@@ -11,36 +11,36 @@ export function StoreCard({ store, index }: StoreCardProps) {
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 30, scale: 0.95 },
+        hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
         show: { 
           opacity: 1, 
           y: 0, 
-          scale: 1,
+          filter: "blur(0px)",
           transition: {
-            duration: 0.8,
+            duration: 1,
             ease: [0.16, 1, 0.3, 1]
           }
         }
       }}
-      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      whileHover={{ y: -15, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }}
       className="group cursor-pointer w-full"
     >
-      <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group-hover:shadow-[0_20px_50px_rgba(0,157,224,0.15)] transition-all duration-500">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+      <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-6 shadow-[0_15px_45px_rgb(0,0,0,0.06)] group-hover:shadow-[0_30px_70px_rgba(0,157,224,0.25)] transition-all duration-700">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
         
         <motion.img
           src={store.imageUrl}
           alt={store.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-115"
         />
         
-        <div className="absolute bottom-4 left-4 z-20">
+        <div className="absolute bottom-6 left-6 z-20">
             <motion.div 
-              initial={{ x: -10, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl flex items-center gap-2 text-sm font-black text-foreground"
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              className="bg-white/95 backdrop-blur-xl px-5 py-2.5 rounded-[1.25rem] shadow-2xl flex items-center gap-3 text-sm font-black text-foreground"
             >
-              <Clock className="w-4 h-4 text-primary" />
+              <Clock className="w-5 h-5 text-primary" />
               {store.deliveryTime}
             </motion.div>
         </div>
