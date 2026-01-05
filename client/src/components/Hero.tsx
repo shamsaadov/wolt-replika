@@ -1,43 +1,64 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const DELIVERED_WORDS = ["Food.", "Grocery.", "Pharmacy.", "Everything."];
 
 export function Hero() {
   const [isFocused, setIsFocused] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % DELIVERED_WORDS.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative h-[600px] lg:h-[700px] overflow-hidden flex items-center justify-center">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/30 z-10" />
-        {/* Using a high quality Unsplash image for the hero background */}
-        {/* food delivery city bike */}
-        <img
-          src="https://pixabay.com/get/g080be1a9cd3e7b263ab623389ba050aceae31b42c496065e56ff3307f55f32eaa0d3e7b3beaa1b1156a0a582647d819deef7a7ba23c77cc33a4e6815b911eb94_1280.jpg"
+      {/* Dynamic Background with Parallax */}
+      <motion.div 
+        className="absolute inset-0 z-0"
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 10, ease: "linear" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent z-10" />
+        <motion.img
+          src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop"
           alt="Wolt Hero"
           className="w-full h-full object-cover object-center"
+          initial={{ y: 0 }}
+          style={{ y: "var(--scroll-y)" }}
         />
-      </div>
+      </motion.div>
 
       <div className="container-wolt relative z-20 w-full">
         <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black text-white leading-[0.9] tracking-tight mb-8 drop-shadow-lg"
-          >
-            Everything.
-            <br />
-            Delivered.
-          </motion.h1>
+          <div className="h-[200px] sm:h-[240px] lg:h-[280px] flex flex-col justify-center">
+            <AnimatePresence mode="wait">
+              <motion.h1
+                key={DELIVERED_WORDS[wordIndex]}
+                initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -40, filter: "blur(10px)" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="text-5xl sm:text-7xl lg:text-[6rem] font-black text-white leading-[0.9] tracking-tight mb-4 drop-shadow-2xl"
+              >
+                {DELIVERED_WORDS[wordIndex]}
+                <br />
+                <span className="text-white/90">Delivered.</span>
+              </motion.h1>
+            </AnimatePresence>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className={`bg-white p-2 rounded-2xl shadow-2xl transition-all duration-300 flex flex-col sm:flex-row items-center gap-2 ${
-              isFocused ? "ring-4 ring-blue-500/30 scale-[1.01]" : ""
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className={`bg-white p-2 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 flex flex-col sm:flex-row items-center gap-2 ${
+              isFocused ? "ring-4 ring-primary/20 scale-[1.02] shadow-[0_25px_60px_rgba(0,0,0,0.3)]" : ""
             }`}
           >
             <div className="flex-1 w-full flex items-center px-4 h-14 relative">
