@@ -16,23 +16,9 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative h-[600px] lg:h-[700px] overflow-hidden flex items-center justify-center">
-      {/* Dynamic Background with Parallax */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 10, ease: "linear" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent z-10" />
-        <motion.img
-          src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop"
-          alt="Wolt Hero"
-          className="w-full h-full object-cover object-center"
-          initial={{ y: 0 }}
-          style={{ y: "var(--scroll-y)" }}
-        />
-      </motion.div>
+    <section className="relative h-[500px] lg:h-[550px] overflow-hidden flex items-center justify-center bg-[#00b4d8]">
+      {/* Solid cyan background like Wolt */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#00b4d8] to-[#00b4d8]" />
 
       <div className="container-wolt relative z-20 w-full">
         <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0">
@@ -58,14 +44,16 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className={`bg-white p-2 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 flex flex-col sm:flex-row items-center gap-2 ${
-              isFocused ? "ring-4 ring-primary/20 scale-[1.02] shadow-[0_25px_60px_rgba(0,0,0,0.3)]" : ""
+              isFocused
+                ? "ring-4 ring-primary/20 scale-[1.02] shadow-[0_25px_60px_rgba(0,0,0,0.3)]"
+                : ""
             }`}
           >
             <div className="flex-1 w-full flex items-center px-4 h-14 relative">
               <MapPin className="w-6 h-6 text-primary mr-3 shrink-0" />
               <div className="flex flex-col w-full text-left">
-                <label 
-                  htmlFor="address-input" 
+                <label
+                  htmlFor="address-input"
                   className={`text-[10px] font-bold text-gray-500 uppercase tracking-wider transition-all duration-200 ${
                     isFocused ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
                   }`}
@@ -99,8 +87,10 @@ export function Hero() {
             transition={{ delay: 0.5 }}
             className="mt-6 text-white/90 font-medium text-lg drop-shadow-md"
           >
-            <span className="text-primary-foreground font-bold bg-green-500/90 px-2 py-0.5 rounded mr-2">New!</span>
-             Wait less. Track more. Eat happy.
+            <span className="text-primary-foreground font-bold bg-green-500/90 px-2 py-0.5 rounded mr-2">
+              New!
+            </span>
+            Wait less. Track more. Eat happy.
           </motion.p>
         </div>
       </div>
