@@ -2,27 +2,27 @@ import { motion } from "framer-motion";
 import { 
   SiMcdonalds, 
   SiStarbucks, 
-  SiSubway, 
   SiBurgerking, 
   SiKfc, 
   SiCocacola, 
-  SiPepsi, 
-  SiNestle, 
   SiUnilever,
-  SiDominos,
+  SiNike,
+  SiAdidas,
+  SiApple,
+  SiAmazon,
 } from "react-icons/si";
 
 const PARTNERS = [
   { name: "McDonald's", Icon: SiMcdonalds },
   { name: "Starbucks", Icon: SiStarbucks },
-  { name: "Subway", Icon: SiSubway },
   { name: "Burger King", Icon: SiBurgerking },
   { name: "KFC", Icon: SiKfc },
   { name: "Coca-Cola", Icon: SiCocacola },
-  { name: "Pepsi", Icon: SiPepsi },
-  { name: "Nestlé", Icon: SiNestle },
   { name: "Unilever", Icon: SiUnilever },
-  { name: "Domino's", Icon: SiDominos },
+  { name: "Nike", Icon: SiNike },
+  { name: "Adidas", Icon: SiAdidas },
+  { name: "Apple", Icon: SiApple },
+  { name: "Amazon", Icon: SiAmazon },
 ];
 
 export function LogoMarquee() {
@@ -46,7 +46,7 @@ export function LogoMarquee() {
           >
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, i) => (
               <div key={`row1-${i}`} className="flex items-center gap-6 text-gray-300 grayscale hover:grayscale-0 transition-all duration-700 hover:text-primary cursor-pointer px-4">
-                <partner.Icon className="w-14 h-14" />
+                {partner.Icon && <partner.Icon className="w-14 h-14" />}
                 <span className="text-3xl font-black tracking-tighter opacity-50 hover:opacity-100 transition-opacity">{partner.name}</span>
               </div>
             ))}
@@ -58,7 +58,7 @@ export function LogoMarquee() {
           <motion.div 
             className="flex gap-16 items-center whitespace-nowrap px-8"
             initial={{ x: -1920 }}
-            animate={{ x: [ -1920, 0] }}
+            animate={{ x: [-1920, 0] }}
             transition={{ 
               duration: 45, 
               repeat: Infinity, 
@@ -67,7 +67,7 @@ export function LogoMarquee() {
           >
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, i) => (
               <div key={`row2-${i}`} className="flex items-center gap-6 text-gray-300 grayscale hover:grayscale-0 transition-all duration-700 hover:text-primary cursor-pointer px-4">
-                <partner.Icon className="w-14 h-14" />
+                {partner.Icon && <partner.Icon className="w-14 h-14" />}
                 <span className="text-3xl font-black tracking-tighter opacity-50 hover:opacity-100 transition-opacity">{partner.name}</span>
               </div>
             ))}
