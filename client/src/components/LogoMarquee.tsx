@@ -153,7 +153,8 @@ export function LogoMarquee() {
     <div className="relative py-8 overflow-hidden">
       {/* Split background - top cyan, bottom black */}
       <div className="absolute inset-0 z-0">
-        <div className="h-1/2 bg-[#00b4d8]" />
+        <div className="h-1/2 bg-[#
+        009de0]" />
         <div className="h-1/2 bg-black" />
       </div>
 
