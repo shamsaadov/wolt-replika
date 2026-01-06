@@ -1,13 +1,80 @@
 import { motion } from "framer-motion";
-import { Clock, Star, Bike } from "lucide-react";
+import { Clock, Bike, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { type Store } from "@shared/schema";
+import useEmblaCarousel from 'embla-carousel-react';
+import { useCallback, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
-interface StoreCardProps {
-  store: Store;
-  index: number;
+interface StoreRailProps {
+  title: string;
+  stores: Store[];
 }
 
-export function StoreCard({ store, index }: StoreCardProps) {
+export function StoreRail({ title, stores }: StoreRailProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    containScroll: 'trimSnaps',
+    dragFree: true,
+  });
+
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const onSelect = useCallback((api: any) => {
+    setCanScrollPrev(api.canScrollPrev());
+    setCanScrollNext(api.canScrollNext());
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect(emblaApi);
+    emblaApi.on('reInit', onSelect);
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  return (
+    <div className="py-8 group/rail relative">
+      <div className="flex items-center justify-between mb-10 px-1">
+        <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tighter leading-none">{title}</h2>
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex items-center gap-2">
+             <Button
+               variant="outline"
+               size="icon"
+               className={`rounded-2xl h-12 w-12 border-2 transition-all ${!canScrollPrev ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}
+               onClick={scrollPrev}
+             >
+               <ChevronLeft className="w-6 h-6" />
+             </Button>
+             <Button
+               variant="outline"
+               size="icon"
+               className={`rounded-2xl h-12 w-12 border-2 transition-all ${!canScrollNext ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}
+               onClick={scrollNext}
+             >
+               <ChevronRight className="w-6 h-6" />
+             </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="embla overflow-hidden -mx-4 px-4 sm:mx-0 sm:px-0" ref={emblaRef}>
+        <div className="embla__container flex gap-8">
+          {stores.map((store, index) => (
+            <div key={store.id} className="embla__slide flex-[0_0_auto] w-[300px] sm:w-[380px]">
+              <StoreCard store={store} index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function StoreCard({ store, index }: { store: Store; index: number }) {
   return (
     <motion.div
       variants={{

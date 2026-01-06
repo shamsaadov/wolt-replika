@@ -2,7 +2,7 @@ import { useStores, useCreateStore } from "@/hooks/use-stores";
 import { useCategories } from "@/hooks/use-categories";
 import { Hero } from "@/components/Hero";
 import { Header } from "@/components/Header";
-import { StoreCard } from "@/components/StoreCard";
+import { StoreRail } from "@/components/StoreCard";
 import { CategoryRail } from "@/components/CategoryRail";
 import { Footer } from "@/components/Footer";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
+// Dummy data for initial hydration visualization if API is empty
 const DEMO_STORES = [
   { id: 991, name: "McDonald's", imageUrl: "https://images.unsplash.com/photo-1552590635-27c2c2128abf?auto=format&fit=crop&w=800&q=80", description: "Burgers • American • Fast Food", deliveryPrice: "$1.99", deliveryTime: "15-25 min", category: "Restaurants" },
   { id: 992, name: "Sushi Zen", imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80", description: "Sushi • Japanese • Asian", deliveryPrice: "$3.49", deliveryTime: "30-45 min", category: "Restaurants" },
@@ -88,6 +89,7 @@ export default function Home() {
       <Header />
       <Hero />
 
+      {/* Sticky Filter Bar */}
       <div className="sticky top-[72px] z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100 py-4 shadow-sm">
         <div className="container-wolt flex items-center gap-4 overflow-x-auto hide-scrollbar">
           {["All", "Restaurants", "Grocery", "Pharmacy", "Pets", "Retail"].map((cat) => (
@@ -108,60 +110,14 @@ export default function Home() {
 
       <main className="container-wolt relative z-30 pb-20 pt-10">
         <div className="space-y-32">
+          {/* Categories Rail */}
           <section>
              <CategoryRail title="Browse by category" categories={displayCategories} />
           </section>
 
+          {/* Featured Stores Rail */}
           <section>
             <motion.div 
-              className="flex items-center justify-between mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight leading-none">
-                Popular near you
-              </h2>
-              <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTrigger asChild>
-                  <Button className="rounded-2xl bg-primary text-white hover:bg-blue-600 font-black px-8 py-6 h-auto text-lg transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
-                    <Plus className="w-6 h-6 mr-2" />
-                    Add Store
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] rounded-[2.5rem] p-8">
-                  <DialogHeader>
-                    <DialogTitle className="text-3xl font-black">Add New Store</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={handleSubmit} className="space-y-6 mt-6">
-                    <div className="space-y-2">
-                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Store Name</Label>
-                      <Input 
-                        className="h-16 rounded-2xl bg-gray-50 border-none text-lg font-bold px-6 focus-visible:ring-2 focus-visible:ring-primary/20"
-                        value={formData.name} 
-                        onChange={e => setFormData({...formData, name: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Description</Label>
-                      <Input 
-                        className="h-16 rounded-2xl bg-gray-50 border-none text-lg font-bold px-6 focus-visible:ring-2 focus-visible:ring-primary/20"
-                        value={formData.description} 
-                        onChange={e => setFormData({...formData, description: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full h-16 rounded-2xl text-xl font-black shadow-2xl shadow-primary/30 mt-4" disabled={createStoreMutation.isPending}>
-                      {createStoreMutation.isPending ? "Creating..." : "Create Store"}
-                    </Button>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </motion.div>
-            
-            <motion.div 
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16"
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
@@ -173,12 +129,50 @@ export default function Home() {
                 }
               }}
             >
-              {displayStores.map((store: any, index: number) => (
-                <StoreCard key={store.id} store={store} index={index} />
-              ))}
+              <StoreRail title="Popular near you" stores={displayStores} />
+              
+              <div className="mt-8 flex justify-center">
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                  <DialogTrigger asChild>
+                    <Button className="rounded-2xl bg-primary text-white hover:bg-blue-600 font-black px-8 py-6 h-auto text-lg transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20">
+                      <Plus className="w-6 h-6 mr-2" />
+                      Add Store
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px] rounded-[2.5rem] p-8">
+                    <DialogHeader>
+                      <DialogTitle className="text-3xl font-black">Add New Store</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+                      <div className="space-y-2">
+                        <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Store Name</Label>
+                        <Input 
+                          className="h-16 rounded-2xl bg-gray-50 border-none text-lg font-bold px-6 focus-visible:ring-2 focus-visible:ring-primary/20"
+                          value={formData.name} 
+                          onChange={e => setFormData({...formData, name: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs font-black uppercase tracking-widest text-gray-400">Description</Label>
+                        <Input 
+                          className="h-16 rounded-2xl bg-gray-50 border-none text-lg font-bold px-6 focus-visible:ring-2 focus-visible:ring-primary/20"
+                          value={formData.description} 
+                          onChange={e => setFormData({...formData, description: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <Button type="submit" className="w-full h-16 rounded-2xl text-xl font-black shadow-2xl shadow-primary/30 mt-4" disabled={createStoreMutation.isPending}>
+                        {createStoreMutation.isPending ? "Creating..." : "Create Store"}
+                      </Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </motion.div>
           </section>
 
+          {/* App Download Promo */}
           <section className="bg-primary rounded-[3.5rem] p-10 sm:p-20 flex flex-col md:flex-row items-center gap-16 relative overflow-hidden shadow-[0_40px_100px_rgba(0,157,224,0.3)]">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
             <div className="relative z-10 flex-1 space-y-10 text-center md:text-left">
@@ -231,6 +225,7 @@ export default function Home() {
             </motion.div>
           </section>
 
+          {/* Second Categories Rail - Retail */}
           <section>
              <CategoryRail title="Shops & Retail" categories={displayCategories.slice(0, 4)} />
           </section>
