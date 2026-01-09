@@ -1,6 +1,7 @@
 import { Hero } from "@/components/Hero";
 import { Header } from "@/components/Header";
 import { LogoMarquee } from "@/components/LogoMarquee";
+import { SupportSection } from "@/components/SupportSection";
 import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
 import {
@@ -15,15 +16,18 @@ import {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-background font-sans overflow-x-hidden">
       <Header />
 
       {/* Hero section with LogoMarquee at the boundary */}
       <Hero />
       <LogoMarquee />
 
-      {/* Main content on black background */}
-      <main className="relative z-30 bg-black">
+      {/* Main content */}
+      <main className="relative z-30 bg-gray-50 dark:bg-[#0a0a0a]">
+        {/* Real support section */}
+        <SupportSection />
+
         {/* Courier & Merchant Cards */}
         <section className="py-16">
           <div className="container-wolt">
@@ -90,36 +94,36 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="space-y-8"
               >
-                <h2 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
+                <h2 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight">
                   Life tastes better with Wolt
                 </h2>
-                <p className="text-xl text-gray-400 leading-relaxed">
+                <p className="text-xl text-muted-foreground leading-relaxed">
                   Wolt makes it incredibly easy to discover and get what you
                   want. Delivered to you — quickly, reliably and affordably.
                 </p>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#009de0]/20 flex items-center justify-center flex-shrink-0">
-                      <Zap className="w-6 h-6 text-[#009de0]" />
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Zap className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">
+                      <h4 className="text-lg font-semibold text-foreground mb-1">
                         Fast delivery
                       </h4>
-                      <p className="text-gray-400">
+                      <p className="text-muted-foreground">
                         We deliver food and more within 30 minutes on average
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-[#009de0]/20 flex items-center justify-center flex-shrink-0">
-                      <Headphones className="w-6 h-6 text-[#009de0]" />
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Headphones className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">
+                      <h4 className="text-lg font-semibold text-foreground mb-1">
                         Real support from real people
                       </h4>
-                      <p className="text-gray-400">
+                      <p className="text-muted-foreground">
                         Our support team is here to help you 24/7
                       </p>
                     </div>
@@ -180,7 +184,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-[#1a1a1a] rounded-3xl overflow-hidden"
+              className="bg-white dark:bg-card rounded-3xl overflow-hidden shadow-lg dark:shadow-none border border-transparent dark:border-border"
             >
               <div className="grid lg:grid-cols-2 gap-0">
                 <div className="p-10 sm:p-16 flex flex-col justify-center">
@@ -188,10 +192,10 @@ export default function Home() {
                     <ShoppingBag className="w-4 h-4" />
                     Wolt Market
                   </div>
-                  <h3 className="text-4xl font-bold text-white mb-4">
+                  <h3 className="text-4xl font-bold text-foreground mb-4">
                     Fresh groceries, delivered
                   </h3>
-                  <p className="text-lg text-gray-400 mb-8">
+                  <p className="text-lg text-muted-foreground mb-8">
                     Get your everyday essentials delivered to your door in as
                     little as 30 minutes.
                   </p>
@@ -219,7 +223,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-[#1a1a1a] rounded-3xl overflow-hidden"
+              className="bg-white dark:bg-card rounded-3xl overflow-hidden shadow-lg dark:shadow-none border border-transparent dark:border-border"
             >
               <div className="grid lg:grid-cols-2 gap-0">
                 <div className="relative h-80 lg:h-auto order-2 lg:order-1">
@@ -230,14 +234,14 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-10 sm:p-16 flex flex-col justify-center order-1 lg:order-2">
-                  <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-400 px-4 py-1.5 rounded-full font-semibold text-sm mb-6 w-fit">
+                  <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-400 dark:text-purple-300 px-4 py-1.5 rounded-full font-semibold text-sm mb-6 w-fit">
                     <Building2 className="w-4 h-4" />
                     Wolt for Work
                   </div>
-                  <h3 className="text-4xl font-bold text-white mb-4">
+                  <h3 className="text-4xl font-bold text-foreground mb-4">
                     Delivering happiness to your workplace
                   </h3>
-                  <p className="text-lg text-gray-400 mb-8">
+                  <p className="text-lg text-muted-foreground mb-8">
                     Easy meal benefits and expensing for your employees. Keep
                     your team happy and productive.
                   </p>
@@ -260,14 +264,14 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
                 Award-winning mobile app
               </h2>
-              <p className="text-xl text-gray-400 mb-12">
+              <p className="text-xl text-muted-foreground mb-12">
                 Get the best Wolt experience by downloading our mobile app
               </p>
               <div className="flex flex-wrap justify-center gap-8 mb-12">
-                <div className="bg-[#1a1a1a] rounded-2xl p-6 min-w-[180px]">
+                <div className="bg-white dark:bg-card rounded-2xl p-6 min-w-[180px] shadow-lg dark:shadow-none border border-transparent dark:border-border">
                   <div className="flex items-center justify-center gap-1 mb-2">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -276,10 +280,10 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                  <p className="text-2xl font-bold text-white mb-1">4.8</p>
-                  <p className="text-gray-500 text-sm">App Store</p>
+                  <p className="text-2xl font-bold text-foreground mb-1">4.8</p>
+                  <p className="text-muted-foreground text-sm">App Store</p>
                 </div>
-                <div className="bg-[#1a1a1a] rounded-2xl p-6 min-w-[180px]">
+                <div className="bg-white dark:bg-card rounded-2xl p-6 min-w-[180px] shadow-lg dark:shadow-none border border-transparent dark:border-border">
                   <div className="flex items-center justify-center gap-1 mb-2">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -288,12 +292,12 @@ export default function Home() {
                       />
                     ))}
                   </div>
-                  <p className="text-2xl font-bold text-white mb-1">4.7</p>
-                  <p className="text-gray-500 text-sm">Google Play</p>
+                  <p className="text-2xl font-bold text-foreground mb-1">4.7</p>
+                  <p className="text-muted-foreground text-sm">Google Play</p>
                 </div>
               </div>
               <div className="flex flex-wrap justify-center gap-4">
-                <button className="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center gap-3">
+                <button className="bg-foreground text-background px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-colors flex items-center gap-3">
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
@@ -303,7 +307,7 @@ export default function Home() {
                   </svg>
                   App Store
                 </button>
-                <button className="bg-white text-black px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors flex items-center gap-3">
+                <button className="bg-foreground text-background px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-colors flex items-center gap-3">
                   <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
@@ -327,18 +331,18 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-[#1a1a1a] rounded-3xl p-10 group cursor-pointer hover:bg-[#222] transition-colors"
+                className="bg-white dark:bg-card rounded-3xl p-10 group cursor-pointer hover:bg-gray-50 dark:hover:bg-secondary transition-colors shadow-lg dark:shadow-none border border-transparent dark:border-border"
               >
                 <div className="w-14 h-14 rounded-full bg-orange-500/20 flex items-center justify-center mb-6">
                   <ShoppingBag className="w-7 h-7 text-orange-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-2xl font-bold text-foreground mb-3">
                   For restaurants and stores
                 </h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-muted-foreground mb-6">
                   Partner with us and reach more customers than ever
                 </p>
-                <div className="flex items-center gap-2 text-[#009de0] font-semibold">
+                <div className="flex items-center gap-2 text-primary font-semibold">
                   <span>Become a partner</span>
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -350,18 +354,18 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="bg-[#1a1a1a] rounded-3xl p-10 group cursor-pointer hover:bg-[#222] transition-colors"
+                className="bg-white dark:bg-card rounded-3xl p-10 group cursor-pointer hover:bg-gray-50 dark:hover:bg-secondary transition-colors shadow-lg dark:shadow-none border border-transparent dark:border-border"
               >
                 <div className="w-14 h-14 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
                   <Bike className="w-7 h-7 text-green-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
+                <h3 className="text-2xl font-bold text-foreground mb-3">
                   For couriers
                 </h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-muted-foreground mb-6">
                   Deliver with Wolt and earn on your own schedule
                 </p>
-                <div className="flex items-center gap-2 text-[#009de0] font-semibold">
+                <div className="flex items-center gap-2 text-primary font-semibold">
                   <span>Start delivering</span>
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -379,7 +383,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <h2 className="text-4xl font-bold text-white mb-12">
+              <h2 className="text-4xl font-bold text-foreground mb-12">
                 Explore Wolt cities
               </h2>
               <div className="flex flex-wrap justify-center gap-3">
@@ -399,7 +403,7 @@ export default function Home() {
                 ].map((city) => (
                   <button
                     key={city}
-                    className="bg-[#1a1a1a] hover:bg-[#222] text-white px-6 py-3 rounded-full font-medium transition-colors"
+                    className="bg-white dark:bg-card hover:bg-gray-100 dark:hover:bg-secondary text-foreground px-6 py-3 rounded-full font-medium transition-colors shadow-sm dark:shadow-none border border-gray-200 dark:border-border"
                   >
                     {city}
                   </button>

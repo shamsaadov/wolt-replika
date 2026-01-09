@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { Globe, Menu, X } from "lucide-react";
+import { Globe, Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/hooks/use-theme";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,12 +18,16 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
   return (
     <>
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white shadow-sm py-3"
+            ? "bg-white dark:bg-background shadow-sm dark:shadow-none dark:border-b dark:border-border py-3"
             : "bg-transparent py-4"
         }`}
         initial={{ y: -100 }}
@@ -42,11 +48,34 @@ export function Header() {
 
           {/* Right side - Navigation */}
           <div className="flex items-center gap-6">
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg transition-all duration-300 ${
+                isScrolled
+                  ? "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-white/10"
+                  : "text-white hover:bg-white/10"
+              }`}
+              aria-label="Toggle theme"
+            >
+              <motion.div
+                initial={false}
+                animate={{ rotate: resolvedTheme === "dark" ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                {resolvedTheme === "dark" ? (
+                  <Moon className="w-5 h-5" />
+                ) : (
+                  <Sun className="w-5 h-5" />
+                )}
+              </motion.div>
+            </button>
+
             {/* Language selector */}
             <button
               className={`hidden sm:flex items-center gap-2 font-semibold text-sm transition-colors ${
                 isScrolled
-                  ? "text-gray-700 hover:text-[#009de0]"
+                  ? "text-gray-700 hover:text-[#009de0] dark:text-gray-200 dark:hover:text-[#00b4ff]"
                   : "text-white hover:text-white/80"
               }`}
             >
@@ -60,7 +89,7 @@ export function Header() {
                 href="#"
                 className={`font-semibold text-sm transition-colors ${
                   isScrolled
-                    ? "text-gray-700 hover:text-[#009de0]"
+                    ? "text-gray-700 hover:text-[#009de0] dark:text-gray-200 dark:hover:text-[#00b4ff]"
                     : "text-white hover:text-white/80"
                 }`}
               >
@@ -70,7 +99,7 @@ export function Header() {
                 href="#"
                 className={`font-semibold text-sm transition-colors ${
                   isScrolled
-                    ? "text-gray-700 hover:text-[#009de0]"
+                    ? "text-gray-700 hover:text-[#009de0] dark:text-gray-200 dark:hover:text-[#00b4ff]"
                     : "text-white hover:text-white/80"
                 }`}
               >
@@ -83,7 +112,7 @@ export function Header() {
               <button
                 className={`font-semibold text-sm px-4 py-2 rounded-lg transition-colors ${
                   isScrolled
-                    ? "text-gray-700 hover:bg-gray-100"
+                    ? "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-white/10"
                     : "text-white hover:bg-white/10"
                 }`}
               >
@@ -93,7 +122,7 @@ export function Header() {
                 className={`font-semibold text-sm px-5 py-2.5 rounded-lg transition-all ${
                   isScrolled
                     ? "bg-[#009de0] text-white hover:bg-[#0088c6]"
-                    : "bg-white text-[#009de0] hover:bg-gray-100"
+                    : "bg-white text-[#009de0] hover:bg-gray-100 dark:bg-white dark:text-[#009de0]"
                 }`}
               >
                 Sign up
@@ -105,7 +134,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`md:hidden p-2 rounded-lg transition-colors ${
                 isScrolled
-                  ? "text-gray-700 hover:bg-gray-100"
+                  ? "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-white/10"
                   : "text-white hover:bg-white/10"
               }`}
             >
@@ -126,23 +155,23 @@ export function Header() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-white pt-20"
+            className="fixed inset-0 z-40 bg-white dark:bg-background pt-20"
           >
             <div className="container-wolt py-8 space-y-6">
               <Link
                 href="#"
-                className="block text-lg font-semibold text-gray-800 hover:text-[#009de0] py-3 border-b border-gray-100"
+                className="block text-lg font-semibold text-gray-800 dark:text-gray-100 hover:text-[#009de0] dark:hover:text-[#00b4ff] py-3 border-b border-gray-100 dark:border-border"
               >
                 Become a partner
               </Link>
               <Link
                 href="#"
-                className="block text-lg font-semibold text-gray-800 hover:text-[#009de0] py-3 border-b border-gray-100"
+                className="block text-lg font-semibold text-gray-800 dark:text-gray-100 hover:text-[#009de0] dark:hover:text-[#00b4ff] py-3 border-b border-gray-100 dark:border-border"
               >
                 Careers
               </Link>
               <div className="pt-4 space-y-3">
-                <button className="w-full py-3 rounded-lg font-semibold text-gray-700 hover:bg-gray-100 transition-colors">
+                <button className="w-full py-3 rounded-lg font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
                   Log in
                 </button>
                 <button className="w-full py-3 rounded-lg font-semibold bg-[#009de0] text-white hover:bg-[#0088c6] transition-colors">

@@ -40,6 +40,37 @@
   --font-display: 'Nunito', sans-serif;
 }
 
+/* Dark theme */
+.dark {
+  --primary: 198 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  
+  --background: 222 47% 8%;
+  --foreground: 210 20% 95%;
+  
+  --card: 222 47% 11%;
+  --card-foreground: 210 20% 95%;
+  
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 20% 95%;
+  
+  --secondary: 222 47% 15%;
+  --secondary-foreground: 210 20% 95%;
+  
+  --muted: 222 47% 15%;
+  --muted-foreground: 215 20% 60%;
+  
+  --accent: 198 100% 15%;
+  --accent-foreground: 198 100% 60%;
+  
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 222 47% 18%;
+  --input: 222 47% 18%;
+  --ring: 198 100% 50%;
+}
+
 @layer base {
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20;
@@ -59,6 +90,10 @@
   
   .glass-header {
     @apply bg-white/90 backdrop-blur-md border-b border-gray-100;
+  }
+  
+  .dark .glass-header {
+    @apply bg-background/90 border-border;
   }
 }
 

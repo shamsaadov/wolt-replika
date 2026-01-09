@@ -38,7 +38,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#1a1a1a] pt-16 pb-8">
+    <footer className="bg-gray-900 dark:bg-[#0a0a0a] pt-16 pb-8 border-t border-gray-800 dark:border-border">
       <div className="container-wolt">
         {/* Main footer content */}
         <div className="flex flex-col lg:flex-row justify-between gap-12 mb-16">

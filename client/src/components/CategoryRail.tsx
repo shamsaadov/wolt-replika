@@ -65,7 +65,7 @@ export function CategoryRail({ title, categories }: CategoryRailProps) {
                <ChevronRight className="w-6 h-6" />
              </Button>
           </div>
-          <button className="w-max flex items-center font-black text-primary hover:bg-blue-50 px-8 py-4 rounded-[1.5rem] transition-all hover:scale-105 active:scale-95 group shadow-sm hover:shadow-xl hover:shadow-primary/10">
+          <button className="w-max flex items-center font-black text-primary hover:bg-blue-50 dark:hover:bg-primary/15 px-8 py-4 rounded-[1.5rem] transition-all hover:scale-105 active:scale-95 group shadow-sm hover:shadow-xl hover:shadow-primary/10">
             Explore all
             <ChevronRight className="w-7 h-7 ml-2 transition-transform group-hover:translate-x-2" />
           </button>

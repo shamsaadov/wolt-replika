@@ -134,16 +134,14 @@ function BrandCard({
   brand: { name: string; textColor: string; bgColor: string; style: string };
 }) {
   return (
-    <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300">
-      <div
-        className={`w-full h-full ${brand.bgColor} flex items-center justify-center p-2`}
+    <div
+      className={`flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 ${brand.bgColor} flex items-center justify-center p-2`}
+    >
+      <span
+        className={`${brand.textColor} ${brand.style} text-center leading-tight`}
       >
-        <span
-          className={`${brand.textColor} ${brand.style} text-center leading-tight`}
-        >
-          {brand.name}
-        </span>
-      </div>
+        {brand.name}
+      </span>
     </div>
   );
 }
@@ -151,18 +149,17 @@ function BrandCard({
 export function LogoMarquee() {
   return (
     <div className="relative py-8 overflow-hidden">
-      {/* Split background - top cyan, bottom black */}
+      {/* Split background - top cyan, bottom light/dark */}
       <div className="absolute inset-0 z-0">
-        <div className="h-1/2 bg-[#
-        009de0]" />
-        <div className="h-1/2 bg-black" />
+        <div className="h-1/2 bg-[#009de0]" />
+        <div className="h-1/2 bg-gray-50 dark:bg-[#0a0a0a]" />
       </div>
 
       <div className="relative z-10 flex flex-col gap-4">
         {/* Row 1: Moving Left */}
-        <div className="relative flex overflow-hidden">
+        <div className="relative flex overflow-hidden py-2">
           <motion.div
-            className="flex gap-4 items-center"
+            className="flex gap-4 items-center pl-4"
             animate={{ x: [0, -1500] }}
             transition={{
               duration: 25,
@@ -182,9 +179,9 @@ export function LogoMarquee() {
         </div>
 
         {/* Row 2: Moving Right */}
-        <div className="relative flex overflow-hidden">
+        <div className="relative flex overflow-hidden py-2">
           <motion.div
-            className="flex gap-4 items-center"
+            className="flex gap-4 items-center pl-4"
             initial={{ x: -1500 }}
             animate={{ x: [-1500, 0] }}
             transition={{
@@ -207,7 +204,7 @@ export function LogoMarquee() {
 
       {/* Popular around you text */}
       <div className="relative z-10 flex justify-center mt-8">
-        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group">
+        <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group">
           <span className="text-base font-medium">
             Popular around you right now
           </span>
